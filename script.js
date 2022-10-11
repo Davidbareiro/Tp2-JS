@@ -128,11 +128,12 @@ while (Entrada != "Q") {
         //    console.log(Entrada);
         break;
     }
-    if ((Mensaje = "1")) {
+    if ((Mensaje == "1")) {
+        console.log("1 de Cliente");
         operacionesUsuario();
     }
-    if ((Mensaje = "2")) {
-        console.log("2");
+    if ((Mensaje == "2")) {
+        console.log("2 de aministrador");
         operacionesAdministrador();
     }
 }
@@ -144,7 +145,7 @@ function operacionesUsuario() {
 
     while (salida) {
         Mensaje = prompt(
-            "Ingrese la operacion a realizar. \n 1.Pedir un Prestamo \n 2.Ver todos sus prestamos \n 3.Ordenar prestamos por monto ascendente \n 4.Ordenar prestamos por monto descendente \n 5. Total Deuda \n \n Ingrese Q para volver al menu anterior. "
+            "Ingrese la operacion a realizar. \n 100.Pedir un Prestamo \n 200.Ver todos sus prestamos \n 300.Ordenar prestamos por monto ascendente \n 400.Ordenar prestamos por monto descendente \n 500. Total Deuda \n \n Ingrese Q para volver al menu anterior. "
         );
 
         console.log(Mensaje);
@@ -155,39 +156,39 @@ function operacionesUsuario() {
             break;
         }
 
-        if (Mensaje == "1") {
+        if (Mensaje == "100") {
             console.log("Selecciono la opcion 1 ");
 
             pedirPrestamo();
 
         }
 
-        if (Mensaje == "2") {
-             console.log("Selecciono la opcion 2 ");
+        if (Mensaje == "200") {
+            console.log("Selecciono la opcion 2 ");
 
-            alert (verPrestamosporUsuario(misPrestamos));
+            alert(verPrestamosporUsuario(misPrestamos));
         }
 
 
-        if (Mensaje == "3") {
+        if (Mensaje == "300") {
             console.log("3.Ordenar prestamos por monto ascendente ");
 
 
-           alert( trabajosSegunEleccion(Mensaje, misPrestamos));
+            alert(trabajosSegunEleccion(Mensaje, misPrestamos));
         }
 
-        if (Mensaje == "4") {
+        if (Mensaje == "400") {
             console.log("3.Ordenar prestamos por monto descendente ");
 
 
-           alert( trabajosSegunEleccion(Mensaje, misPrestamos));
+            alert(trabajosSegunEleccion(Mensaje, misPrestamos));
         }
 
-        if (Mensaje == "5") {
+        if (Mensaje == "500") {
             console.log(" Total de la deuda ");
 
 
-           alert( totalPrestamosporCliente( misPrestamos));
+            alert(totalPrestamosporCliente(misPrestamos));
         }
 
     }
@@ -240,20 +241,20 @@ function pedirPrestamo() {
 function trabajosSegunEleccion(opcion, mx) {
     let miMx = mx.slice(0);
 
-    let salida= ''; 
+    let salida = '';
 
     switch (opcion) {
 
 
         case "3":
 
-            
+
 
             // let orderAscendenteMonto =  miMx.sort((a,b)=> a.Monto.localeCompare(b.Monto));
             miMx.sort((a, b) => parseFloat(b.Monto) - parseFloat(a.Monto));;
 
             miMx.forEach(x => {
-        
+
                 salida += 'Nombre :  ' + x.NombreApellido + '\n IdPrestamo : ' + x.Id + '\n Monto : ' + x.Monto + '\n FechaCanc : ' + x.FechaFinalizacion + '\n \n '
             });
 
@@ -262,12 +263,12 @@ function trabajosSegunEleccion(opcion, mx) {
 
             break;
         case "4":
-           
+
             // let orderAscendenteMonto =  miMx.sort((a,b)=> a.Monto.localeCompare(b.Monto));
             miMx.sort((a, b) => parseFloat(a.Monto) - parseFloat(b.Monto));;
 
             miMx.forEach(x => {
-        
+
                 salida += 'Nombre :  ' + x.NombreApellido + '\n IdPrestamo : ' + x.Id + '\n Monto : ' + x.Monto + '\n FechaCanc : ' + x.FechaFinalizacion + '\n \n '
             });
 
@@ -284,15 +285,14 @@ function trabajosSegunEleccion(opcion, mx) {
 }
 
 //Opcion 2 de Clientes
-function verPrestamosporUsuario(mx) 
-{
+function verPrestamosporUsuario(mx) {
     let salida = '';
 
-  let Mensaje = prompt ("Ingrese el nombre del usuario a buscar");
-  const resp = mx.filter(pres => pres.NombreApellido.toUpperCase().includes(Mensaje.toUpperCase()));
+    let Mensaje = prompt("Ingrese el nombre del usuario a buscar");
+    const resp = mx.filter(pres => pres.NombreApellido.toUpperCase().includes(Mensaje.toUpperCase()));
 
     resp.forEach(x => {
-        
+
         salida += 'Nombre :  ' + x.NombreApellido + '\n IdPrestamo : ' + x.Id + '\n Monto : ' + x.Monto + '\n \n '
     });
 
@@ -302,16 +302,15 @@ function verPrestamosporUsuario(mx)
 }
 
 //Opcion 5 Total Deuda
-function totalPrestamosporCliente(mx) 
-{
+function totalPrestamosporCliente(mx) {
     let salida = '';
-    let Monto = 0; 
+    let Monto = 0;
 
-  let Mensaje = prompt ("Ingrese el nombre del usuario a buscar");
-    const resp = mx.filter(pres => pres.NombreApellido.toUpperCase().includes (Mensaje.toUpperCase()));
+    let Mensaje = prompt("Ingrese el nombre del usuario a buscar");
+    const resp = mx.filter(pres => pres.NombreApellido.toUpperCase().includes(Mensaje.toUpperCase()));
 
     resp.forEach(x => {
-        Monto +=  x.Monto;
+        Monto += x.Monto;
 
         salida += 'Nombre :  ' + x.NombreApellido + '\n IdPrestamo : ' + x.Id + '\n Monto : ' + x.Monto + '\n \n '
     });
@@ -326,11 +325,89 @@ function totalPrestamosporCliente(mx)
 //********************************************************OPERACIONES ADMINISTRADOR */
 
 
-function operacionesAdministrador()
-{
+function operacionesAdministrador() {
+
+    let salida = true;
+    let Mensaje = "";
 
 
-    
+    let miMx = misPrestamos.slice(0);
+
+    while (salida) {
+        Mensaje = prompt(
+            "Ingrese la operacion a realizar. \n 10.Ordenar por nombre A-Z \n 20.Ordenar por nombre Z-A \n 30.Deuda total \n \n Ingrese Q para volver al menu anterior. "
+        );
+
+        console.log(Mensaje);
+        let datos = "";
+
+        if (Mensaje === "Q") {
+            salida = false;
+            break;
+        }
+
+        console.log("Se elijio ", Mensaje);
+
+        if (Mensaje == "10") {
+            console.log("1.Ordenar por nombre A-Z");
+
+            let Clientes = miMx.sort((a, b) => a.NombreApellido.localeCompare(b.NombreApellido));
+
+
+            miMx.forEach(x => {
+
+                salida += 'Nombre :  ' + x.NombreApellido + '\n IdPrestamo : ' + x.Id + '\n Monto : ' + x.Monto + '\n FechaCanc : ' + x.FechaFinalizacion + '\n \n '
+            });
+
+            console.log(miMx);
+            alert(salida);
+
+            break;
+
+        }
+
+        if (Mensaje == "20") {
+            console.log("1.Ordenar por nombre A-Z");
+
+            let Clientes = miMx.sort((a, b) => b.NombreApellido.localeCompare(a.NombreApellido));
+
+
+            miMx.forEach(x => {
+
+                salida += 'Nombre :  ' + x.NombreApellido + '\n IdPrestamo : ' + x.Id + '\n Monto : ' + x.Monto + '\n FechaCanc : ' + x.FechaFinalizacion + '\n \n '
+            });
+
+            console.log(miMx);
+            alert(salida);
+
+            break;
+
+
+        }
+
+
+        if (Mensaje == "30") {
+            console.log(" Deuda total");
+
+            let Monto =0;
+
+
+            misPrestamos.forEach(x => {
+                Monto += x.Monto;
+
+
+            });
+
+            Mensaje = "El total de la deuda de todos los clientes es : " + Monto.toString();
+
+            alert (Mensaje );
+
+        }
+
+
+    }
+
+
 }
 
   //  David-30000-1400-S
